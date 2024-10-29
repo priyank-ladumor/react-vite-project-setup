@@ -2,11 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useProductMutations } from "../../action/product/ProductMutation";
 import { productQuery } from "../../action/product/product";
+import { useCartContext } from "../../stores/demo.context";
 
 function Home() {
     const { deleteProductMutation } = useProductMutations();
     const [productDatas, setProductDatas] = useState([]);
+    const { cartData, setCartData } = useCartContext();
+    console.log('✌️cartData --->', cartData);
 
+    setCartData('piyu')
     const { data, error, isLoading } = useQuery({
         ...productQuery.all(),
     });
