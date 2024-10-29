@@ -1,9 +1,9 @@
 import { lazy, Suspense } from 'react';
 import Loading from '../components/loader/loader';
 
-const Home = lazy(() => import("/src/pages/Home/page.jsx"));
-const NotFound = lazy(() => import("/src/pages/NotFound/page.jsx"));
-const Login = lazy(() => import("/src/pages/login/page.jsx"));
+const Home = lazy(() => import("/src/pages/Home/home.jsx"));
+const NotFound = lazy(() => import("/src/pages/NotFound/not-found.jsx"));
+const Login = lazy(() => import("/src/pages/login/login.jsx"));
 
 const routes = [
     {
