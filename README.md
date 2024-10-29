@@ -19,5 +19,5 @@ npm install
 npx npm-check-updates -u
 npm install
 
-//project env seup
+//project env setup
 VITE_BASE_API_URL=''
