@@ -3,7 +3,7 @@ import { MuiOtpInput } from 'mui-one-time-password-input';
 import FormHelperText from '@mui/material/FormHelperText';
 import PropTypes from 'prop-types';
 
-export default function RHFCode({ name, ...other }) {
+export default function RHFCodeOTP({ name, ...other }) {
     const { control } = useFormContext();
 
     return (
@@ -34,11 +34,8 @@ export default function RHFCode({ name, ...other }) {
     );
 }
 
-RHFCode.propTypes = {
+RHFCodeOTP.propTypes = {
     name: PropTypes.string.isRequired,
     other: PropTypes.object,
 };
 
-RHFCode.defaultProps = {
-    other: {},
-};

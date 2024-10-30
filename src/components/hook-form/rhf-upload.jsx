@@ -2,7 +2,6 @@ import { Controller, useFormContext } from 'react-hook-form';
 import Box from '@mui/material/Box';
 import FormHelperText from '@mui/material/FormHelperText';
 import CircularProgress from '@mui/material/CircularProgress';
-import { Upload, UploadBox, UploadAvatar } from '../upload'; // For layout
 import PropTypes from 'prop-types';
 
 // ----------------------------------------------------------------------
@@ -34,10 +33,6 @@ RHFUploadAvatar.propTypes = {
     other: PropTypes.object,
 };
 
-RHFUploadAvatar.defaultProps = {
-    other: {},
-};
-
 // ----------------------------------------------------------------------
 
 export function RHFUploadBox({ name, ...other }) {
@@ -57,10 +52,6 @@ export function RHFUploadBox({ name, ...other }) {
 RHFUploadBox.propTypes = {
     name: PropTypes.string.isRequired,
     other: PropTypes.object,
-};
-
-RHFUploadBox.defaultProps = {
-    other: {},
 };
 
 // ----------------------------------------------------------------------
@@ -135,11 +126,4 @@ RHFUpload.propTypes = {
     multiple: PropTypes.bool,
     helperText: PropTypes.node,
     other: PropTypes.object,
-};
-
-RHFUpload.defaultProps = {
-    loading: false,
-    multiple: false,
-    helperText: null,
-    other: {},
 };

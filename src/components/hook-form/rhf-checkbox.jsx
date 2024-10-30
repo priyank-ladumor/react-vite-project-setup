@@ -1,13 +1,7 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import Checkbox from '@mui/material/Checkbox';
-import FormGroup from '@mui/material/FormGroup';
-import FormLabel from '@mui/material/FormLabel';
-import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
-import FormControlLabel, {
-    formControlLabelClasses,
-} from '@mui/material/FormControlLabel';
 import PropTypes from 'prop-types';
+import { Checkbox, FormControl, FormControlLabel, formControlLabelClasses, FormGroup, FormLabel } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -34,10 +28,6 @@ export function RHFCheckbox({ name, helperText, ...other }) {
 RHFCheckbox.propTypes = {
     name: PropTypes.string.isRequired,
     helperText: PropTypes.node,
-};
-
-RHFCheckbox.defaultProps = {
-    helperText: null,
 };
 
 // ----------------------------------------------------------------------
@@ -96,8 +86,8 @@ export function RHFMultiCheckbox({
                                 key={option.value}
                                 control={
                                     <Checkbox
-                                        checked={field.value.includes(option.value)}
-                                        onChange={() => field.onChange(getSelected(field.value, option.value))}
+                                        checked={(field.value || []).includes(option.value)}
+                                        onChange={() => field.onChange(getSelected(field.value || [], option.value))}
                                     />
                                 }
                                 label={option.label}
@@ -117,6 +107,7 @@ export function RHFMultiCheckbox({
     );
 }
 
+
 RHFMultiCheckbox.propTypes = {
     name: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(
@@ -130,12 +121,4 @@ RHFMultiCheckbox.propTypes = {
     spacing: PropTypes.number,
     helperText: PropTypes.node,
     sx: PropTypes.object,
-};
-
-RHFMultiCheckbox.defaultProps = {
-    row: false,
-    label: '',
-    spacing: 0,
-    helperText: null,
-    sx: {},
 };

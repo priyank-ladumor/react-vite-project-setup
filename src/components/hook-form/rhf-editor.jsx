@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import 'react-quill/dist/quill.snow.css';
 import FormHelperText from '@mui/material/FormHelperText';
 import PropTypes from 'prop-types';
 import Editor from '../editor/editor';
 
-export default function RHFEditor({ name, helperText, ...other }) {
+export default function RHFEditor({ name, helperText = null, ...other }) {
     const {
         control,
         watch,
@@ -33,6 +34,7 @@ export default function RHFEditor({ name, helperText, ...other }) {
                     onChange={(content) => {
                         field.onChange(content);
                     }}
+                    sx={{ '& .ql-editor': { minHeight: 200 }, border: (!!error || helperText) ? 'solid 1px red' : 'solid 1px gray' }}
                     error={!!error}
                     helperText={
                         (!!error || helperText) && (
@@ -51,10 +53,4 @@ export default function RHFEditor({ name, helperText, ...other }) {
 RHFEditor.propTypes = {
     name: PropTypes.string.isRequired,
     helperText: PropTypes.node,
-    other: PropTypes.object,
-};
-
-RHFEditor.defaultProps = {
-    helperText: null,
-    other: {},
 };

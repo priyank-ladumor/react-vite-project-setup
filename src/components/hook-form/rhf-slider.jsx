@@ -30,8 +30,3 @@ RHFSlider.propTypes = {
     helperText: PropTypes.node,
     other: PropTypes.object,
 };
-
-RHFSlider.defaultProps = {
-    helperText: null,
-    other: {},
-};

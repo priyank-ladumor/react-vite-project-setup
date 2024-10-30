@@ -137,7 +137,7 @@ export const StyledEditorToolbar = styled('div')(({ theme }) => {
                     border: 'none',
                     maxHeight: 200,
                     overflow: 'auto',
-                    boxShadow: theme.customShadows.z20,
+                    boxShadow: theme.customShadows?.z20 || '0px 4px 6px rgba(0, 0, 0, 0.1)',
                     borderRadius: theme.shape.borderRadius,
                     backgroundColor: theme.palette.background.paper,
                 },

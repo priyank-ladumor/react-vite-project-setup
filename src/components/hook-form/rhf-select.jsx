@@ -66,13 +66,6 @@ RHFSelect.propTypes = {
     PaperPropsSx: PropTypes.object,
 };
 
-RHFSelect.defaultProps = {
-    native: false,
-    maxHeight: 220,
-    helperText: null,
-    PaperPropsSx: {},
-};
-
 // ----------------------------------------------------------------------
 
 export function RHFMultiSelect({
@@ -125,12 +118,11 @@ export function RHFMultiSelect({
                         renderValue={renderValues}
                     >
                         {options.map((option) => {
-                            const selected = field.value.includes(option.value);
+                            const selected = field.value && field.value.includes(option.value); // Add a check to avoid accessing undefined
 
                             return (
                                 <MenuItem key={option.value} value={option.value}>
                                     {checkbox && <Checkbox size="small" disableRipple checked={selected} />}
-
                                     {option.label}
                                 </MenuItem>
                             );
@@ -159,12 +151,4 @@ RHFMultiSelect.propTypes = {
             value: PropTypes.string.isRequired,
         })
     ).isRequired,
-};
-
-RHFMultiSelect.defaultProps = {
-    label: '',
-    chip: false,
-    checkbox: false,
-    placeholder: '',
-    helperText: null,
 };

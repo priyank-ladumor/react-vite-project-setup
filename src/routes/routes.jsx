@@ -4,6 +4,7 @@ import Loading from '../components/loader/loader';
 const Home = lazy(() => import("/src/pages/Home/home.jsx"));
 const NotFound = lazy(() => import("/src/pages/NotFound/not-found.jsx"));
 const Login = lazy(() => import("/src/pages/login/login.jsx"));
+const Form = lazy(() => import("/src/pages/form/form.jsx"));
 
 const routes = [
     {
@@ -19,6 +20,13 @@ const routes = [
                 <Login />
             </Suspense>
         ), protected: true,
+    },
+    {
+        path: '/form', element: (
+            <Suspense fallback={<Loading />} >
+                <Form />
+            </Suspense>
+        ), protected: false,
     },
     { path: '*', element: <NotFound />, protected: false },
 ];

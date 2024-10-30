@@ -1,8 +1,6 @@
 import { StyledEditorToolbar } from './styles';
 import PropTypes from 'prop-types';
 
-// ----------------------------------------------------------------------
-
 const HEADINGS = ['Heading 1', 'Heading 2', 'Heading 3', 'Heading 4', 'Heading 5', 'Heading 6'];
 
 export const formats = [
@@ -31,7 +29,7 @@ export const formats = [
     'video',
 ];
 
-export default function Toolbar({ id, simple, ...other }) {
+export default function Toolbar({ id, simple = false, ...other }) {
     return (
         <StyledEditorToolbar {...other}>
             <div id={id}>
@@ -104,10 +102,4 @@ export default function Toolbar({ id, simple, ...other }) {
 Toolbar.propTypes = {
     id: PropTypes.string.isRequired,
     simple: PropTypes.bool,
-    other: PropTypes.object,
-};
-
-Toolbar.defaultProps = {
-    simple: false,
-    other: {},
 };

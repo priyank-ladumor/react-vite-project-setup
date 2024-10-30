@@ -1,15 +1,28 @@
-import { alpha } from '@mui/material/styles';
 import PropTypes from 'prop-types';
+import { alpha, createTheme, styled, ThemeProvider } from '@mui/material/styles';
+import Toolbar, { formats } from './Toolbar';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import Toolbar, { formats } from './toolbar';
-import { StyledEditor } from './styles';
+
+const theme = createTheme({
+    palette: {
+        error: {
+            main: '#d32f2f',
+        },
+    },
+});
+
+const StyledEditor = styled('div')(({ theme, error }) => ({
+    border: error ? `solid 1px ${theme.palette.error.main}` : 'none',
+    '& .ql-editor': {
+        backgroundColor: error ? alpha(theme.palette.error.main, 0.08) : 'transparent',
+    },
+}));
 
 export default function Editor({
     id = 'minimal-quill',
-    error,
+    error = false,
     simple = false,
-    helperText,
+    helperText = null,
     sx,
     ...other
 }) {
@@ -22,25 +35,14 @@ export default function Editor({
             maxStack: 100,
             userOnly: true,
         },
-        syntax: true,
         clipboard: {
             matchVisual: false,
         },
     };
 
     return (
-        <>
-            <StyledEditor
-                sx={{
-                    ...(error && {
-                        border: (theme) => `solid 1px ${theme.palette.error.main}`,
-                        '& .ql-editor': {
-                            bgcolor: (theme) => alpha(theme.palette.error.main, 0.08),
-                        },
-                    }),
-                    ...sx,
-                }}
-            >
+        <ThemeProvider theme={theme}>
+            <StyledEditor error={error} sx={{ ...sx }}>
                 <Toolbar id={id} simple={simple} />
                 <ReactQuill
                     modules={modules}
@@ -49,8 +51,8 @@ export default function Editor({
                     {...other}
                 />
             </StyledEditor>
-            {helperText && helperText}
-        </>
+            {helperText && <div>{helperText}</div>}
+        </ThemeProvider>
     );
 }
 
@@ -61,13 +63,4 @@ Editor.propTypes = {
     helperText: PropTypes.node,
     sx: PropTypes.object,
     other: PropTypes.object,
-};
-
-Editor.defaultProps = {
-    id: 'minimal-quill',
-    error: false,
-    simple: false,
-    helperText: null,
-    sx: {},
-    other: {},
 };

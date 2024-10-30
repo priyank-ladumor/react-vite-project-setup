@@ -36,9 +36,3 @@ RHFSwitch.propTypes = {
     isControlled: PropTypes.bool,
     other: PropTypes.object,
 };
-
-RHFSwitch.defaultProps = {
-    helperText: null,
-    isControlled: true,
-    other: {},
-};

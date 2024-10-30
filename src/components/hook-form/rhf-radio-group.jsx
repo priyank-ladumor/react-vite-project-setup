@@ -78,10 +78,4 @@ RHFRadioGroup.propTypes = {
     other: PropTypes.object,
 };
 
-RHFRadioGroup.defaultProps = {
-    label: '',
-    row: false,
-    spacing: 0,
-    helperText: null,
-    other: {},
-};
+

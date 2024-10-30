@@ -43,10 +43,3 @@ RHFAutocomplete.propTypes = {
     helperText: PropTypes.string,
     other: PropTypes.object,
 };
-
-RHFAutocomplete.defaultProps = {
-    label: '',
-    placeholder: '',
-    helperText: '',
-    other: {},
-};

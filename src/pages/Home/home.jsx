@@ -45,10 +45,11 @@ function Home() {
                 </div>
             ) : (
                 <div className="card">
+                    <h1>Products</h1>
                     {productDatas.length > 0 &&
-                        productDatas.map((product) => (
+                        productDatas.slice(0, 3).map((product) => (
                             <>
-                                <div style={{ border: "1px solid black", margin: "15px" }}>
+                                <div style={{ border: "1px solid black", margin: "15px", width: '300px' }}>
                                     <img
                                         src={product.images?.[0]}
                                         width={120}
