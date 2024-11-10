@@ -1,12 +1,10 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import Box from '@mui/material/Box';
-import FormHelperText from '@mui/material/FormHelperText';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Box, Button, Chip, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 // ----------------------------------------------------------------------
 
-export function RHFUploadAvatar({ name, ...other }) {
+export function RHFFileUpload({ name, label, accept, helperText, ...other }) {
     const { control } = useFormContext();
 
     return (
@@ -14,105 +12,29 @@ export function RHFUploadAvatar({ name, ...other }) {
             name={name}
             control={control}
             render={({ field, fieldState: { error } }) => (
-                <div>
-                    <UploadAvatar error={!!error} file={field.value} {...other} />
-
-                    {!!error && (
-                        <FormHelperText error sx={{ px: 2, textAlign: 'center' }}>
-                            {error.message}
-                        </FormHelperText>
-                    )}
-                </div>
-            )}
-        />
-    );
-}
-
-RHFUploadAvatar.propTypes = {
-    name: PropTypes.string.isRequired,
-    other: PropTypes.object,
-};
-
-// ----------------------------------------------------------------------
-
-export function RHFUploadBox({ name, ...other }) {
-    const { control } = useFormContext();
-
-    return (
-        <Controller
-            name={name}
-            control={control}
-            render={({ field, fieldState: { error } }) => (
-                <UploadBox files={field.value} error={!!error} {...other} />
-            )}
-        />
-    );
-}
-
-RHFUploadBox.propTypes = {
-    name: PropTypes.string.isRequired,
-    other: PropTypes.object,
-};
-
-// ----------------------------------------------------------------------
-
-const overlayStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.7)', // Semi-transparent white
-    zIndex: 2, // Ensure it's above other content
-};
-
-export function RHFUpload({ name, loading, multiple, helperText, ...other }) {
-    const { control } = useFormContext();
-    const imageloading = loading;
-
-    return (
-        <Controller
-            name={name}
-            control={control}
-            render={({ field, fieldState: { error } }) => (
-                <Box position="relative" width="100%"> {/* Ensure this has relative positioning */}
-                    {imageloading && (
-                        <Box sx={overlayStyle}>
-                            <CircularProgress />
-                        </Box>
-                    )}
-                    {multiple ? (
-                        <Upload
-                            multiple
-                            accept={{ 'image/*': [] }}
-                            files={field.value}
-                            error={!!error}
-                            helperText={
-                                (!!error || helperText) && (
-                                    <FormHelperText error={!!error} sx={{ px: 2 }}>
-                                        {error ? error?.message : helperText}
-                                    </FormHelperText>
-                                )
-                            }
-                            {...other}
+                <Box {...other}>
+                    {label && <Typography variant="subtitle1">{label}</Typography>}
+                    <Button
+                        variant="contained"
+                        component="label"
+                    >
+                        Upload File
+                        <input
+                            type="file"
+                            hidden
+                            accept={accept}
+                            onChange={(e) => field.onChange(e.target.files[0])}
                         />
-                    ) : (
-                        <Upload
-                            accept={{ 'image/*': [] }}
-                            file={field.value}
-                            error={!!error}
-                            helperText={
-                                (!!error || helperText) && (
-                                    <FormHelperText error={!!error} sx={{ px: 2 }}>
-                                        {error ? error?.message : helperText}
-                                    </FormHelperText>
-                                )
-                            }
-                            {...other}
-                        />
+                    </Button>
+                    {field.value && (
+                        <Typography variant="body2" sx={{ mt: 1 }}>
+                            Selected File: {field.value.name}
+                        </Typography>
+                    )}
+                    {(!!error || helperText) && (
+                        <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                            {error ? error.message : helperText}
+                        </Typography>
                     )}
                 </Box>
             )}
@@ -120,10 +42,57 @@ export function RHFUpload({ name, loading, multiple, helperText, ...other }) {
     );
 }
 
-RHFUpload.propTypes = {
+RHFFileUpload.propTypes = {
     name: PropTypes.string.isRequired,
-    loading: PropTypes.bool,
-    multiple: PropTypes.bool,
+    label: PropTypes.string,
+    accept: PropTypes.string,
     helperText: PropTypes.node,
-    other: PropTypes.object,
+};
+
+export function RHFMultiFileUpload({ name, label, accept, helperText, ...other }) {
+    const { control } = useFormContext();
+
+    return (
+        <Controller
+            name={name}
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+                <Box {...other}>
+                    {label && <Typography variant="subtitle1">{label}</Typography>}
+                    <Button
+                        variant="contained"
+                        component="label"
+                    >
+                        Upload Files
+                        <input
+                            type="file"
+                            hidden
+                            accept={accept}
+                            multiple
+                            onChange={(e) => field.onChange(Array.from(e.target.files))}
+                        />
+                    </Button>
+                    {field.value && field.value.length > 0 && (
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1 }}>
+                            {field.value.map((file, index) => (
+                                <Chip key={index} label={file.name} size="small" />
+                            ))}
+                        </Box>
+                    )}
+                    {(!!error || helperText) && (
+                        <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                            {error ? error.message : helperText}
+                        </Typography>
+                    )}
+                </Box>
+            )}
+        />
+    );
+}
+
+RHFMultiFileUpload.propTypes = {
+    name: PropTypes.string.isRequired,
+    label: PropTypes.string,
+    accept: PropTypes.string,
+    helperText: PropTypes.node,
 };

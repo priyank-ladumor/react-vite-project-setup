@@ -12,7 +12,7 @@ import RHFRadioGroup from "../../components/hook-form/rhf-radio-group";
 import { RHFMultiSelect, RHFSelect } from "../../components/hook-form/rhf-select";
 import RHFSlider from "../../components/hook-form/rhf-slider";
 import RHFSwitch from "../../components/hook-form/rhf-switch";
-import { RHFUpload, RHFUploadAvatar } from "../../components/hook-form/rhf-upload";
+import { RHFFileUpload, RHFMultiFileUpload } from "../../components/hook-form/rhf-upload";
 
 
 const validationSchema = Yup.object().shape({
@@ -45,6 +45,27 @@ const validationSchema = Yup.object().shape({
         .min(0, 'Value must be at least 0')
         .max(100, 'Value cannot exceed 100'),
     switchValue: Yup.bool().required('Switch value is required'),
+    singlefile: Yup.mixed()
+        .required('File is required')
+        .test('fileSize', 'File size should not exceed 5MB', (file) =>
+            file ? file.size <= 5 * 1024 * 1024 : true
+        )
+        .test('fileFormat', 'Unsupported file format', (file) =>
+            file ? ['image/jpeg', 'image/png', 'application/pdf'].includes(file.type) : true
+        ),
+    multiplefile: Yup.array()
+        .of(
+            Yup.mixed()
+                .required('File is required')
+                .test('fileSize', 'File size should not exceed 5MB', (file) =>
+                    file ? file.size <= 5 * 1024 * 1024 : true
+                )
+                .test('fileFormat', 'Unsupported file format', (file) =>
+                    file ? ['image/jpeg', 'image/png', 'application/pdf'].includes(file.type) : true
+                )
+        )
+        .min(1, 'At least one file is required')
+        .required(),
 });
 
 const relatedSearchArr = [
@@ -99,6 +120,8 @@ const Form = () => {
             multiSelect: [],
             sliderValue: 37,
             switchValue: false,
+            singlefile: null,
+            multiplefile: null,
         },
     });
 
@@ -207,15 +230,16 @@ const Form = () => {
                         name="switchValue"
                         label="Enable Feature"
                     />
-                    <Typography gutterBottom>Upload Avatar</Typography>
-                    <RHFUploadAvatar name="avatar" />
-
-                    <Typography gutterBottom sx={{ mt: 4 }}>Upload Images</Typography>
-                    <RHFUpload
-                        name="images"
+                    <RHFFileUpload
+                        name="singlefile"
+                        label="Upload your Single file"
+                        accept=".jpg,.png,.pdf"
+                    />
+                    <RHFMultiFileUpload
+                        name="multiplefile"
+                        label="Upload your Multiple file"
+                        accept=".jpg,.png,.pdf"
                         multiple
-                        loading={false} // Change this based on your loading state
-                        helperText="You can upload multiple images."
                     />
                     <Button type="submit" variant="contained" color="primary">
                         Submit
