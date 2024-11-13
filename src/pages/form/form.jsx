@@ -1,9 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import * as Yup from 'yup';
 import FormProvider from "../../components/hook-form/form-provider";
 import RHFTextField from "/src/components/hook-form/rhf-text-field.jsx";
-import { Box, Button, Chip, MenuItem, Typography } from "@mui/material";
+import { Box, Button, Chip, IconButton, MenuItem, Typography } from "@mui/material";
 import RHFAutocomplete from "../../components/hook-form/rhf-autocomplete";
 import { RHFCheckbox, RHFMultiCheckbox, } from "../../components/hook-form/rhf-checkbox";
 import RHFCodeOTP from "../../components/hook-form/rhf-code-otp";
@@ -13,6 +13,7 @@ import { RHFMultiSelect, RHFSelect } from "../../components/hook-form/rhf-select
 import RHFSlider from "../../components/hook-form/rhf-slider";
 import RHFSwitch from "../../components/hook-form/rhf-switch";
 import { RHFFileUpload, RHFMultiFileUpload } from "../../components/hook-form/rhf-upload";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 
 const validationSchema = Yup.object().shape({
@@ -65,6 +66,15 @@ const validationSchema = Yup.object().shape({
                 )
         )
         .min(1, 'At least one file is required')
+        .required(),
+    relatedItems: Yup.array()
+        .of(
+            Yup.object().shape({
+                id: Yup.string().required('ID is required'),
+                name: Yup.string().required('Name is required'),
+            })
+        )
+        .min(1, 'At least one item is required')
         .required(),
 });
 
@@ -122,10 +132,16 @@ const Form = () => {
             switchValue: false,
             singlefile: null,
             multiplefile: null,
+            relatedItems: [{ id: '', name: '' }],
         },
     });
 
-    const { handleSubmit } = formMethods;
+    const { handleSubmit, control } = formMethods;
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "relatedItems",
+    });
 
     const onSubmit = handleSubmit(async (data) => {
         try {
@@ -241,6 +257,39 @@ const Form = () => {
                         accept=".jpg,.png,.pdf"
                         multiple
                     />
+                    {/* Dynamic Field Array */}
+                    <Typography variant="h6">Related Items / Dynamic Field Array</Typography>
+                    {fields.map((item, index) => (
+                        <Box key={item.id} display="flex" alignItems="center" gap={1}>
+                            <RHFTextField
+                                name={`relatedItems[${index}].id`}
+                                label="ID"
+                                placeholder="Enter ID"
+                                control={control}
+                            />
+
+                            <RHFTextField
+                                name={`relatedItems[${index}].name`}
+                                label="Name"
+                                placeholder="Enter Name"
+                                control={control}
+                            />
+
+                            <IconButton onClick={() => remove(index)} color="error">
+                                <Icon icon="mdi:remove-outline" />
+                            </IconButton>
+                        </Box>
+                    ))}
+
+                    {/* Button to Add a New Field Item */}
+                    <Button
+                        type="button"
+                        onClick={() => append({ id: '', name: '' })}
+                        startIcon={<Icon icon="icon-park-outline:add" />}
+                    >
+                        Add Related Item
+                    </Button>
+
                     <Button type="submit" variant="contained" color="primary">
                         Submit
                     </Button>
