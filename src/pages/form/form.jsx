@@ -14,6 +14,7 @@ import RHFSlider from "../../components/hook-form/rhf-slider";
 import RHFSwitch from "../../components/hook-form/rhf-switch";
 import { RHFFileUpload, RHFMultiFileUpload } from "../../components/hook-form/rhf-upload";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import RHFPasswordField from "../../components/hook-form/rhf-input-password";
 
 
 const validationSchema = Yup.object().shape({
@@ -76,6 +77,9 @@ const validationSchema = Yup.object().shape({
         )
         .min(1, 'At least one item is required')
         .required(),
+    password: Yup.string()
+        .required('Password is required')
+        .min(8, 'Password must be at least 8 characters'),
 });
 
 const relatedSearchArr = [
@@ -133,6 +137,7 @@ const Form = () => {
             singlefile: null,
             multiplefile: null,
             relatedItems: [{ id: '', name: '' }],
+            password: '',
         },
     });
 
@@ -156,6 +161,7 @@ const Form = () => {
             <FormProvider methods={formMethods} onSubmit={onSubmit}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     <RHFTextField name="name" type="text" label="Name" />
+                    <RHFPasswordField name="password" label="Password" />
                     <RHFAutocomplete
                         name="auto_complete"
                         label="auto_complete"
