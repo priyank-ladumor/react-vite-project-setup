@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-const secretKey = "ca8047e16hthUGuf";
+const secretKey = import.meta.env.VITE_LOCALSTORAGE_SECRET_KEY;
 
 // Encrypt data function
 async function encryptData(data) {

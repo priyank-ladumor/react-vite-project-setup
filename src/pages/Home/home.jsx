@@ -2,11 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useProductMutations } from "@/action/product/ProductMutation";
 import { productQuery } from "@/action/product/product";
+import useControlledLocalStorage from "@/utils/localstorage";
 
 function Home() {
     const { deleteProductMutation } = useProductMutations();
     const [productDatas, setProductDatas] = useState([]);
-
+    const [count, setCount] = useControlledLocalStorage("count", 0);
     const { data, error, isLoading } = useQuery({
         ...productQuery.all(),
     });
@@ -46,6 +47,14 @@ function Home() {
             ) : (
                 <div className="card">
                     <h1>Products</h1>
+                    <center>
+                        <h1> {count}</h1>
+                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
+                            <div style={{ cursor: "pointer" }} onClick={() => setCount(count + 1)} ><h1>+</h1></div>
+                            <div style={{ marginLeft: "10px", cursor: "pointer" }} onClick={() => setCount(count - 1)}><h1>-</h1></div>
+                        </div>
+                    </center>
+
                     {productDatas.length > 0 &&
                         productDatas.slice(0, 3).map((product) => (
                             <>
