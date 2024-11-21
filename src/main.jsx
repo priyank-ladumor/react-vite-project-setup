@@ -1,10 +1,10 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StrictMode, Suspense, lazy } from "react";
 import { createRoot } from "react-dom/client";
-import Loading from "./components/loader/loader";
-import { CartProvider } from "./stores/demo.context";
+import Loading from "@/components/loader/loader";
+import { CartProvider } from "@/stores/demo.context";
 
-const App = lazy(() => import("./App"));
+const App = lazy(() => import("@/App"));
 
 const queryClient = new QueryClient();
 

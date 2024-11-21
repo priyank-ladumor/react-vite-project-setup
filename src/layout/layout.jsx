@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { paths } from '/src/routes/paths.js';
+import { paths } from '@/routes/paths.js';
 const Layout = ({ children }) => {
     return (
         <div className="layout">

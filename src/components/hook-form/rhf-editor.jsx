@@ -3,7 +3,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import 'react-quill/dist/quill.snow.css';
 import FormHelperText from '@mui/material/FormHelperText';
 import PropTypes from 'prop-types';
-import Editor from '../editor/editor';
+import Editor from '@/components/editor/editor.jsx';
 
 export default function RHFEditor({ name, helperText = null, ...other }) {
     const {

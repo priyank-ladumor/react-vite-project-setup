@@ -1,4 +1,4 @@
-import { Api } from "../../utils/axios";
+import { Api } from "@/utils/axios.js";
 import { createQueryKeys } from "@lukemorales/query-key-factory";
 
 class Products extends Api {

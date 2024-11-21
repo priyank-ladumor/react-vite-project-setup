@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { alpha, createTheme, styled, ThemeProvider } from '@mui/material/styles';
-import Toolbar, { formats } from './Toolbar';
+import Toolbar, { formats } from '@/components/editor/Toolbar.jsx';
 import ReactQuill from 'react-quill';
 
 const theme = createTheme({

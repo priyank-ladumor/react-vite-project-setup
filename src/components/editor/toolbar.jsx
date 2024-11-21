@@ -1,4 +1,4 @@
-import { StyledEditorToolbar } from './styles';
+import { StyledEditorToolbar } from '@/components/editor/styles';
 import PropTypes from 'prop-types';
 
 const HEADINGS = ['Heading 1', 'Heading 2', 'Heading 3', 'Heading 4', 'Heading 5', 'Heading 6'];

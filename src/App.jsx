@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import routes from './routes/routes';
-import ProtectedRoute from './utils/ProtectedRoute';
-import "./style/global.css"
-import Layout from './layout/layout';
+import routes from '@/routes/routes';
+import ProtectedRoute from '@/utils/ProtectedRoute';
+import "@/style/global.css"
+import Layout from '@/layout/layout.jsx';
 
 const isAuthenticated = localStorage.getItem("accessToken");
 

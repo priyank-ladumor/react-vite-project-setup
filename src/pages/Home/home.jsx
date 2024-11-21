@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { useProductMutations } from "../../action/product/ProductMutation";
-import { productQuery } from "../../action/product/product";
+import { useProductMutations } from "@/action/product/ProductMutation";
+import { productQuery } from "@/action/product/product";
 
 function Home() {
     const { deleteProductMutation } = useProductMutations();

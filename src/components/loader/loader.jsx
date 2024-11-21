@@ -1,5 +1,5 @@
 
-import LoadingGIF from '/src/assets/Loading.gif';
+import LoadingGIF from '@/assets/Loading.gif';
 
 const Loading = () => {
     return (

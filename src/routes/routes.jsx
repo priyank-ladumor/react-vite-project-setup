@@ -1,10 +1,10 @@
 import { lazy, Suspense } from 'react';
-import Loading from '../components/loader/loader';
+import Loading from '@/components/loader/loader';
 
-const Home = lazy(() => import("/src/pages/Home/home.jsx"));
-const NotFound = lazy(() => import("/src/pages/NotFound/not-found.jsx"));
-const Login = lazy(() => import("/src/pages/login/login.jsx"));
-const Form = lazy(() => import("/src/pages/form/form.jsx"));
+const Home = lazy(() => import("@/pages/Home/home.jsx"));
+const NotFound = lazy(() => import("@/pages/NotFound/not-found.jsx"));
+const Login = lazy(() => import("@/pages/login/login.jsx"));
+const Form = lazy(() => import("@/pages/form/form.jsx"));
 
 const routes = [
     {

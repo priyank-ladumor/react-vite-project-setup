@@ -1,20 +1,20 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useFieldArray, useForm } from "react-hook-form";
 import * as Yup from 'yup';
-import FormProvider from "../../components/hook-form/form-provider";
-import RHFTextField from "/src/components/hook-form/rhf-text-field.jsx";
+import FormProvider from "@/components/hook-form/form-provider";
+import RHFTextField from "@/components/hook-form/rhf-text-field.jsx";
 import { Box, Button, Chip, IconButton, MenuItem, Typography } from "@mui/material";
-import RHFAutocomplete from "../../components/hook-form/rhf-autocomplete";
-import { RHFCheckbox, RHFMultiCheckbox, } from "../../components/hook-form/rhf-checkbox";
-import RHFCodeOTP from "../../components/hook-form/rhf-code-otp";
-import RHFEditor from "../../components/hook-form/rhf-editor";
-import RHFRadioGroup from "../../components/hook-form/rhf-radio-group";
-import { RHFMultiSelect, RHFSelect } from "../../components/hook-form/rhf-select";
-import RHFSlider from "../../components/hook-form/rhf-slider";
-import RHFSwitch from "../../components/hook-form/rhf-switch";
-import { RHFFileUpload, RHFMultiFileUpload } from "../../components/hook-form/rhf-upload";
+import RHFAutocomplete from "@/components/hook-form/rhf-autocomplete";
+import { RHFCheckbox, RHFMultiCheckbox, } from "@/components/hook-form/rhf-checkbox";
+import RHFCodeOTP from "@/components/hook-form/rhf-code-otp";
+import RHFEditor from "@/components/hook-form/rhf-editor";
+import RHFRadioGroup from "@/components/hook-form/rhf-radio-group";
+import { RHFMultiSelect, RHFSelect } from "@/components/hook-form/rhf-select";
+import RHFSlider from "@/components/hook-form/rhf-slider";
+import RHFSwitch from "@/components/hook-form/rhf-switch";
+import { RHFFileUpload, RHFMultiFileUpload } from "@/components/hook-form/rhf-upload";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import RHFPasswordField from "../../components/hook-form/rhf-input-password";
+import RHFPasswordField from "@/components/hook-form/rhf-input-password";
 
 
 const validationSchema = Yup.object().shape({
