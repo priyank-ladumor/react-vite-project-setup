@@ -3,7 +3,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import * as Yup from 'yup';
 import FormProvider from "@/components/hook-form/form-provider";
 import RHFTextField from "@/components/hook-form/rhf-text-field.jsx";
-import { Box, Button, Chip, IconButton, MenuItem, Typography } from "@mui/material";
+import { Box, Button, Chip, IconButton, MenuItem, Stack, Typography } from "@mui/material";
 import RHFAutocomplete from "@/components/hook-form/rhf-autocomplete";
 import { RHFCheckbox, RHFMultiCheckbox, } from "@/components/hook-form/rhf-checkbox";
 import RHFCodeOTP from "@/components/hook-form/rhf-code-otp";
@@ -159,7 +159,15 @@ const Form = () => {
     return (
         <div>
             <FormProvider methods={formMethods} onSubmit={onSubmit}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 2,
+                        overflow: 'auto',
+                        padding: 2,
+                    }}
+                >
                     <RHFTextField name="name" type="text" label="Name" />
                     <RHFPasswordField name="password" label="Password" />
                     <RHFAutocomplete
@@ -238,15 +246,17 @@ const Form = () => {
                         chip={true}
                         checkbox={true}
                     />
-                    <Typography gutterBottom>Slider Example</Typography>
-                    <RHFSlider
-                        name="sliderValue"
-                        step={null}
-                        aria-label="Restricted values"
-                        getAriaValueText={valuetext}
-                        valueLabelDisplay="auto"
-                        marks={marks}
-                    />
+                    <Stack sx={{ width: 'calc(100% - 10px)' }} >
+                        <Typography gutterBottom>Slider Example</Typography>
+                        <RHFSlider
+                            name="sliderValue"
+                            step={null}
+                            aria-label="Restricted values"
+                            getAriaValueText={valuetext}
+                            valueLabelDisplay="auto"
+                            marks={marks}
+                        />
+                    </Stack>
                     <Typography gutterBottom>Switch Example</Typography>
                     <RHFSwitch
                         name="switchValue"
